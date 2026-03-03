@@ -1,5 +1,17 @@
-# earkevin11-project
+# Azure - Terraform - Gitlab CI/CD Pipeline Project
 
+HOW-TO: Deploy Azure Services via Terraform through a Gitlab CI/CD Pipeline
+
+# Prerequisites
+- Gitlab Project
+- 4 terraform files
+- - main.tf
+  - providers. tf
+  - variables.tf
+  - tfvars.tf
+- App Registration in Entra ID (acts as the identity that is deploying the Azure resources)
+
+  
 <img width="1727" height="814" alt="image" src="https://github.com/user-attachments/assets/680aa069-9de5-4941-8b88-ad82408f1b78" />
 
 
