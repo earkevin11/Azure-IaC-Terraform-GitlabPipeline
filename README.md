@@ -1,14 +1,11 @@
-# 
 
-## Name of Project: Azure - Terraform - Gitlab CI/CD Pipeline Project
+# Name of Project: Azure - Terraform - Gitlab CI/CD Pipeline Project
 
-
-
-
-Issue: Save hours and replace manual tasks of clicking around Azure console to create test azure virtual machines, storage accounts, key vaults, sql servers/sql databases, managed identities, Entra ID users with role assignments, and more.
+## Issue: 
+- Save hours and replace manual tasks of clicking around Azure console to create test azure virtual machines, storage accounts, key vaults, sql servers/sql databases, managed identities, Entra ID users with role assignments, and more.
 
 ## End Goal:
-Automate Azure Infrastructure provisioning using Terraform Infrastructure as Code in a Gitlab CI/CD Pipeline. Be able to quickly provision and destroy resources for Cloud Security team instead.
+- Automate Azure Infrastructure provisioning using Terraform Infrastructure as Code in a Gitlab CI/CD Pipeline. Be able to quickly provision and destroy resources for Cloud Security team instead.
 
 # How To: Deploy Azure Services via Terraform through a Gitlab CI/CD Pipeline
 
@@ -44,10 +41,21 @@ git push -uf origin main
 ```
 
 # Stages of my Terraform workflows
-init — initialize
-plan — preview changes
-apply — deploy
-destroy — tear down
+
+## When you create a Merge Request for your feature, feature branch MR pipeline triggers 
+
+Feature branch MR pipeline has 2 stages:
+1. init — initialize
+2. plan — preview changes and shows you what will be created, changed, and destroyed
+
+Once the MR pipeline two stages passes, you have to click merge, which triggers the Main pipeline 
+
+Main Pipeline has 5 stages:
+1. init
+2. plan
+3. review (manual click)
+4. apply — deploy (manual click)
+5. destroy — tear down (manual click)
 
 # Why init and plan run on the MR first?
 When you open a Merge Request, GitLab triggers a pipeline on your feature branch. The purpose of running init and plan at this stage is so that you and your team can review what Terraform is going to change BEFORE it gets merged to main.
