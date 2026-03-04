@@ -17,10 +17,9 @@
   - variables.tf
   - tfvars.tf
 - App Registration in Entra ID (acts as the identity that is deploying the Azure resources)
+- Gitlab yaml file
 
-
-
-# Real World Production CI/CD Pipeline
+# Gitlab YAML file for Real World Production CI/CD Pipeline
 - I will break down how teams go through a CI/CD Pipeline and professionals avoid breaking production and reduce security risks.
 
 # 1. Creating a new branch and commiting it. Never commit directly to the Main branch!
@@ -30,6 +29,11 @@
 # 2. Create a Merge Request for your feature, which triggers the feature branch MR pipeline  
 <img width="1039" height="590" alt="image" src="https://github.com/user-attachments/assets/1593f20b-a023-45e5-9621-ada68f656b8d" />
 
+# NOTE: Our gitlab yaml file will 2 pipelines:
+1. Feature branch MR pipeline
+2. Main pipeline
+
+   
 Feature branch MR pipeline has 2 stages:
 1. init — initialize
 2. plan — preview changes and shows you what will be created, changed, and destroyed
