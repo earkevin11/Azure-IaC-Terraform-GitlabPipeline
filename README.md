@@ -141,3 +141,37 @@ IMPORTANT: If your variables in Gitlab are protected, then your Feature branch a
 
 > All variables should be **masked**. Variables must be available on both protected (`main`) and feature branches for the pipeline to authenticate correctly.
 
+
+## What is a Terraform State and why is the State file important?
+- The state file is Terraform's memory. Without it Terraform has no idea what it has already built. Here's what it does:
+  
+**1. Tracks what exists in Azure**
+```
+state file says:          Azure actually has:
+storm-vm ──────────────►  storm-vm ✅
+storm-vnet ────────────►  storm-vnet ✅
+storm-subnet ──────────►  storm-subnet ✅
+```
+Every resource Terraform has ever created is recorded in the state file with its Azure resource ID, properties, and metadata.
+
+**2. Calculates what needs to change**
+
+When you run `terraform plan`, Terraform does three-way comparison:
+```
+your main.tf  +  state file  +  real Azure  =  plan output
+(what you want)  (what was built)  (what exists)
+```
+Without the state file, Terraform would try to create everything from scratch every single time.
+
+**3. Prevents duplicate resources**
+
+Without state:
+```
+run 1 → creates storm-vm
+run 2 → tries to create storm-vm again → Azure throws an error
+```
+With state:
+```
+run 1 → creates storm-vm → records it in state
+run 2 → sees storm-vm already exists in state → skips it
+```
