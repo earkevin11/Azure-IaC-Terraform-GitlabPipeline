@@ -1,0 +1,84 @@
+stages:
+  - init
+  - plan
+  - review
+  - apply
+  - destroy
+
+image:
+  name: hashicorp/terraform:latest
+  entrypoint: [""]
+
+variables:
+  TF_ROOT: ${CI_PROJECT_DIR}/terraform
+
+# ── Reusable setup snippet ──────────────────────────────────────────────────
+.tf_setup: &tf_setup
+  - cd ${TF_ROOT}
+  - export TF_HTTP_USERNAME="earkevin11"
+  - export TF_HTTP_PASSWORD="${GITLAB_ACCESS_TOKEN}"
+  - terraform init
+
+
+# ── INIT ────────────────────────────────────────────────────────────────────
+init:
+  stage: init
+  script:
+    - *tf_setup
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# ── PLAN ────────────────────────────────────────────────────────────────────
+plan:
+  stage: plan
+  resource_group: terraform        # 👈 added It ensures that only one Terraform job runs at a time across your entire project.
+  script:
+    - *tf_setup
+    - terraform plan -var-file=variables.tfvars -out=tfplan
+  artifacts:
+    paths:
+      - ${TF_ROOT}/tfplan
+    expire_in: 7 days
+  needs: [init]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# ── REVIEW GATE ─────────────────────────────────────────────────────────────
+review:
+  stage: review
+  script:
+    - echo "Plan reviewed and approved. Proceeding to apply."
+  needs:
+    - job: plan
+      artifacts: true   # ← carries the tfplan artifact forward
+  when: manual
+  allow_failure: false
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# ── APPLY ───────────────────────────────────────────────────────────────────
+apply:
+  stage: apply
+  resource_group: terraform        # 👈 added It ensures that only one Terraform job runs at a time across your entire project.
+  script:
+    - *tf_setup
+    - terraform apply -auto-approve ${TF_ROOT}/tfplan   # ← full absolute path
+  needs:
+    - job: review
+    - job: plan
+      artifacts: true   # ← tells GitLab to restore plan's artifact here
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# ── DESTROY ─────────────────────────────────────────────────────────────────
+destroy:
+  stage: destroy
+  resource_group: terraform        # 👈 added It ensures that only one Terraform job runs at a time across your entire project.
+  script:
+    - *tf_setup
+    - terraform destroy -auto-approve -var-file=variables.tfvars
+  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
