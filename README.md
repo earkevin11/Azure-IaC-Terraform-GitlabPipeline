@@ -16,6 +16,13 @@
   - tfvars.tf
 - App Registration in Entra ID (acts as the identity that is deploying the Azure resources)
 - Gitlab yaml file
+- Access token
+- State file
+- 4 varibles in Gitlab CI/CD for
+- - client secret
+- - service principal object id
+- - subscription id
+- - tenant id
 
 ## Repository Structure
 
