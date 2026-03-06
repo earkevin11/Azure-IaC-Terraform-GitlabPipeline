@@ -1,5 +1,5 @@
 
-# Name of Project: Azure - Terraform - Gitlab CI/CD Pipeline Project
+# Name: Azure - Terraform - Gitlab CI/CD Pipeline Project
 
 ## Issue: 
 - Save hours and replace manual tasks of clicking around Azure console to create Azure infrastructure
