@@ -1,5 +1,5 @@
 
-# Name: Understanding how 
+# Name: Understanding how Terraform files and Gitlab YAML file work together
 
 ## Issue: 
 - Save hours and replace manual tasks of clicking around Azure console to create Azure infrastructure
