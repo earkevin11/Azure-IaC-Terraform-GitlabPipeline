@@ -4,6 +4,23 @@
 ## Issue: 
 - Save hours and replace manual tasks of clicking around Azure console to create Azure infrastructure
 
+## Benefits:
+1. Reduce manual effort
+- Instead of clicking around the Azure portal manually, your infrastructure is written as code in files that can be 
+- Version controlled in Git
+- Reviewed in merge requests
+- Rolled back if something goes wrong
+- Shared across the team
+
+2. Consistency and repeatability
+- Run terraform apply today   → gets exact same result
+- Run terraform apply tomorrow → gets exact same result
+- Run it in a different region → gets exact same result
+
+3. Cost management
+- Spin up environment for testing
+- Tear them down immediately 
+
 ## End Goal:
 - Automate Azure Infrastructure provisioning using Terraform Infrastructure as Code in a Gitlab CI/CD Pipeline. Be able to quickly provision and destroy resources for Cloud Security team instead.
 
