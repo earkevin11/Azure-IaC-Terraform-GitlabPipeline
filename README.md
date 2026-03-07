@@ -121,7 +121,15 @@ location = "eastus2"         variable "location" {}     location = var.location
 ### The pipeline enforces a safe deployment flow using GitLab's merge request process:
 Note: 
 1. When you make changes in the Gitlab IDE, you have to create a new branch and then commmit. Name it feature/whatever-you-add-or-change
-2. Go to Merge Request and create a Merge Request for your Feature. Then follow below steps.
+
+
+<img width="1135" height="349" alt="image" src="https://github.com/user-attachments/assets/75ca5bb4-b41f-4022-a351-f7fb0ace95a2" />
+
+2. Go to Merge Request and create a Merge Request for your Feature into the Main branch.
+
+<img width="1248" height="581" alt="image" src="https://github.com/user-attachments/assets/8672487c-a655-4d19-8ca4-6c2f5889f9c1" />
+
+Below is a visual representation of the MR pipeline adn the Main pipeline
 
 ```
 Open Merge Request
