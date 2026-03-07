@@ -6,11 +6,11 @@
 
 ## Benefits:
 1. Reduce manual effort
-- Instead of clicking around the Azure portal manually, your infrastructure is written as code in files that can be 
-- Version controlled in Git
-- Reviewed in merge requests
-- Rolled back if something goes wrong
-- Shared across the team
+- Instead of clicking around the Azure portal manually, your infrastructure is written as code in files that can be:
+- - Version controlled in Git
+- - Reviewed in merge requests
+- - Rolled back if something goes wrong
+- - Shared across the team
 
 2. Consistency and repeatability
 - Run terraform apply today   → gets exact same result
@@ -106,44 +106,6 @@ location = "eastus2"         variable "location" {}     location = var.location
 4. **`main.tf`** uses those values to define and name every Azure resource being deployed.
 
 ---
-
-# CI/CD Pipeline is defined in the Gitlab YAML file
-### What is the Gitlab YAML file?
-- Gitlab YAML file is the CI/CD pipeline definition
-- NOTE: Our gitlab yaml file will contain 2 pipelines:
-- - Feature branch MR pipeline
-- - Main pipeline
-
-
-<img width="1231" height="534" alt="image" src="https://github.com/user-attachments/assets/8523738e-1170-4f0a-922b-c913376bea08" />
-
-
-### The pipeline enforces a safe deployment flow using GitLab's merge request process:
-Note: 
-1. When you make changes in the Gitlab IDE, you have to create a new branch and then commmit. Name it feature/whatever-you-add-or-change
-
-
-<img width="1135" height="349" alt="image" src="https://github.com/user-attachments/assets/75ca5bb4-b41f-4022-a351-f7fb0ace95a2" />
-
-2. Go to Merge Request and create a Merge Request for your Feature into the Main branch.
-
-<img width="1248" height="581" alt="image" src="https://github.com/user-attachments/assets/8672487c-a655-4d19-8ca4-6c2f5889f9c1" />
-
-Below is a visual representation of the MR pipeline adn the Main pipeline
-
-```
-Open Merge Request
-        ↓
-init + plan run automatically    ← review what will change before merging
-        ↓
-MR is reviewed and merged to main
-        ↓
-init + plan run again on main
-        ↓
-Maintainer clicks ▶ on review gate
-        ↓
-apply runs                       ← real infrastructure changes happen
-```
 
 ### Pipeline Stages
 
