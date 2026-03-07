@@ -1,5 +1,5 @@
 
-# Name: Azure - Terraform - Gitlab CI/CD Pipeline Project
+# Name: Understanding how 
 
 ## Issue: 
 - Save hours and replace manual tasks of clicking around Azure console to create Azure infrastructure
@@ -55,6 +55,9 @@
 ---
 
 ## File Descriptions
+
+## Gitlab YAML
+- Defines how the CI/CD pipeline runs
 
 ### `providers.tf`
 Defines the Terraform version requirements, required providers, and backend configuration.
