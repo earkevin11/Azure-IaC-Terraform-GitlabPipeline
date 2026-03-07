@@ -1,8 +1,6 @@
 
 # Name: Understanding how Terraform files and Gitlab YAML file work together
 
-## Issue: 
-- Save hours and replace manual tasks of clicking around Azure console to create Azure infrastructure
 
 ## Benefits:
 1. Reduce manual effort
@@ -21,25 +19,6 @@
 - Spin up environment for testing
 - Tear them down immediately 
 
-## End Goal:
-- Automate Azure Infrastructure provisioning using Terraform Infrastructure as Code in a Gitlab CI/CD Pipeline. Be able to quickly provision and destroy resources for Cloud Security team instead.
-
-## Prerequisites
-- Gitlab Project
-- 4 terraform files
-- - main.tf
-  - providers. tf
-  - variables.tf
-  - tfvars.tf
-- App Registration in Entra ID (acts as the identity that is deploying the Azure resources)
-- Gitlab yaml file
-- Access token
-- State file
-- 4 varibles in Gitlab CI/CD for
-- - client secret
-- - service principal object id
-- - subscription id
-- - tenant id
 
 ## Repository Structure
 
@@ -51,8 +30,6 @@
 │   ├── variables.tf     # Input variable declarations
 │   └── variables.tfvars # Variable values for deployment
 ```
-
----
 
 ## File Descriptions
 
@@ -88,8 +65,6 @@ Supplies the actual values for the variables declared in `variables.tf`. This fi
 ### `main.tf`
 Contains all the Azure infrastructure resource definitions. Resources reference the input variables using `var.prefix` and `var.location` so that all resource names and locations are consistent and easy to change. Resources defined here include virtual networks, subnets, network security groups, network interfaces, virtual machines, and any other Azure services being provisioned.
 
----
-
 ## How the Files Work Together
 
 ```
@@ -108,8 +83,6 @@ location = "eastus2"         variable "location" {}     location = var.location
 3. **`variables.tfvars`** supplies the values for those inputs.
 4. **`main.tf`** uses those values to define and name every Azure resource being deployed.
 
----
-
 ### Pipeline Stages
 
 | Stage | Runs On | Description |
@@ -120,7 +93,6 @@ location = "eastus2"         variable "location" {}     location = var.location
 | `apply` | main only | Applies the approved plan to Azure |
 | `destroy` | main only | Tears down infrastructure (manual trigger only) |
 
----
 
 ## Required CI/CD Variables
 
